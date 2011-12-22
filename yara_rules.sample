@@ -1,0 +1,128 @@
+rule Utilprintf: decodedPDF
+{
+	meta:
+		ref = "CVE-2008-2992"
+		hide = true
+	strings:
+		$cve20082992 = "util.printf" nocase fullword
+	condition:
+		1 of them
+}
+rule SpellcustomDictionaryOpen: decodedPDF
+{
+	meta:
+		ref = "CVE-2009-1493"
+		hide = true
+	strings:	
+		$cve20091493 = "spell.customDictionaryOpen" nocase fullword
+	condition:
+		1 of them
+}
+
+rule MSIEUseAfterFree: decodedOnly
+{
+	meta:
+		ref = "CVE-2010-0249"
+		hide = true
+        impact = 5
+	strings:
+		$cve20100249_1 = "createEventObject" nocase fullword
+		$cve20100249_2 = "getElementById" nocase fullword
+		$cve20100249_3 = "onload" nocase fullword
+		$cve20100249_4 = "srcElement" nocase fullword
+	condition:
+		all of them
+}
+
+rule getAnnots: decodedPDF
+{
+	meta:
+		impact = 3  //Since getAnnots may be legitimate
+        ref = "CVE-2009-1492"
+		hide = true
+	strings:
+		$cve20091492 = "getAnnots" nocase fullword
+	condition:
+		1 of them
+}
+rule mediaNewplayer: decodedPDF
+{
+	meta:
+		ref = "CVE-2009-4324"
+		hide = true
+	strings:
+		$cve20094324 = "media.newPlayer" nocase fullword
+	condition:
+		1 of them
+}
+
+rule collectEmailInfo: decodedPDF
+{
+	meta:
+		ref = "CVE-2007-5659"
+		hide = true
+	strings:
+		$cve20075659 = "collab.collectEmailInfo" nocase fullword
+	condition:
+		1 of them
+}
+
+rule CollabgetIcon: decodedPDF
+{
+	meta:
+		ref = "CVE-2009-0927"
+		hide = true
+	strings:		
+		$cve20090927 = "collab.getIcon" nocase fullword
+	condition: 
+		1 of them
+}
+
+rule PDFobfuscation: decodedPDF
+{
+	meta:
+		impact = 5
+	strings:	
+		$cveNOMATCH  = "collab[" nocase 		//hidden collab string
+	condition: 
+		1 of them
+}
+
+rule UnconfirmedPDFexploit: decodedPDF
+{ 	
+	meta:
+		impact = 0
+		//unconfirmed exploitation
+	strings:
+		$cve20084813 = "getCosObj" nocase fullword
+		$cve20082042 = "app.checkForUpdate" nocase fullword
+		$cve20080726 = "printSepsWithParams" nocase fullword
+		$cve20073902 = "setExpression" nocase fullword
+		$cve20090773 = "ResizeSlots" nocase fullword
+	condition:
+		1 of them
+}
+
+
+rule DecodedGenericCLSID : decodedOnly
+{
+	meta:
+		impact = 0
+	strings:
+		$gen = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/ nocase
+	condition:
+		1 of them
+}
+
+rule MSOfficeSnapshotViewer
+{
+	meta:
+		ref = "CVE-2008-2463"
+		impact = 7
+	strings:
+		$cve20082463 = /(F0E42D50|F0E42D60|F2175210)-368C-11D0-AD81-00A0C90DC8D9/ nocase
+	condition:
+		1 of them
+}
+
+
